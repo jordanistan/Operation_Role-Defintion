@@ -1,0 +1,16 @@
+{
+  "name": "operations-assistant-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first MVP for a small-business operations AI assistant.",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "npm test",
+    "migrate:sqlite": "node scripts/migrate-sqlite.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

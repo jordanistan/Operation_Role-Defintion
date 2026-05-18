@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Operations Assistant MVP</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel">
+        <h1>Operations Assistant</h1>
+        <p class="lede">Local MVP for generating small-business operations reviews, SOPs, process audits, and automation assessments.</p>
+
+        <form id="settings-form" class="stack settings">
+          <label>
+            Access key
+            <input name="accessKey" required type="password" autocomplete="off" placeholder="Set when starting the server">
+          </label>
+          <label>
+            Workspace ID
+            <input name="workspaceId" required pattern="[a-zA-Z0-9][a-zA-Z0-9_-]{1,62}" placeholder="demo-client">
+          </label>
+          <button type="submit">Load Workspace</button>
+        </form>
+
+        <form id="profile-form" class="stack">
+          <label>
+            Business name
+            <input name="businessName" required placeholder="Example: Stem Vase Studio">
+          </label>
+          <label>
+            Business type
+            <input name="businessType" required placeholder="Retail florist, service company, clinic...">
+          </label>
+          <label>
+            Team size
+            <input name="teamSize" required placeholder="Owner + 4 staff">
+          </label>
+          <label>
+            Current tools
+            <input name="tools" placeholder="QuickBooks, Google Sheets, ClickUp">
+          </label>
+          <label>
+            Pain points
+            <textarea name="painPoints" rows="3" placeholder="Late orders, inventory gaps, unclear handoffs"></textarea>
+          </label>
+          <label>
+            KPI focus
+            <input name="kpis" placeholder="Fulfillment time, SOP adoption, cost savings">
+          </label>
+          <button type="submit">Save Profile</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Generate Output</h2>
+        <form id="assistant-form" class="stack">
+          <label>
+            Action
+            <select name="action">
+              <option value="daily_review">Daily operations review</option>
+              <option value="weekly_review">Weekly operations review</option>
+              <option value="create_sop">Create SOP</option>
+              <option value="process_audit">Process audit</option>
+              <option value="automation_assessment">Automation assessment</option>
+            </select>
+          </label>
+          <label>
+            Context
+            <textarea name="context" rows="7" placeholder="Describe today's blockers, workflow, customer issue, staffing gap, vendor issue, or automation idea."></textarea>
+          </label>
+          <button type="submit">Generate</button>
+        </form>
+
+        <article id="output" class="output" aria-live="polite"></article>
+        <section class="history">
+          <h2>Recent Outputs</h2>
+          <div id="history-list"></div>
+        </section>
+      </section>
+
+      <section class="panel records-panel">
+        <div class="records-header">
+          <div>
+            <h2>Operational Records</h2>
+            <p class="lede">Track the work that comes out of assistant recommendations.</p>
+          </div>
+          <label>
+            View
+            <select id="record-filter">
+              <option value="all">All records</option>
+              <option value="tasks">Tasks</option>
+              <option value="sops">SOPs</option>
+              <option value="workflows">Workflows</option>
+              <option value="kpiHistory">KPI History</option>
+            </select>
+          </label>
+        </div>
+        <div id="record-counts" class="record-counts"></div>
+
+        <details class="record-create" open>
+          <summary>Add Operational Record</summary>
+          <form id="record-form" class="stack">
+            <label>
+              Record type
+              <select name="collection">
+                <option value="tasks">Task</option>
+                <option value="sops">SOP</option>
+                <option value="workflows">Workflow</option>
+                <option value="kpiHistory">KPI entry</option>
+              </select>
+            </label>
+            <label>
+              Title
+              <input name="title" required placeholder="Follow up with vendor">
+            </label>
+            <label>
+              Status
+              <input name="status" placeholder="open, draft, approved, review_needed">
+            </label>
+            <label>
+              Owner
+              <input name="owner" placeholder="Owner or team member">
+            </label>
+            <label>
+              Due date
+              <input name="dueDate" placeholder="2026-05-22">
+            </label>
+            <label class="workflow-field">
+              Workflow type
+              <input name="type" placeholder="manual, fulfillment, invoicing">
+            </label>
+            <label class="kpi-field">
+              Metric
+              <input name="metric" placeholder="Fulfillment time">
+            </label>
+            <label class="kpi-field">
+              Value
+              <input name="value" placeholder="2.5 days">
+            </label>
+            <label class="kpi-field">
+              Period
+              <input name="period" placeholder="Week of 2026-05-18">
+            </label>
+            <label>
+              Notes
+              <textarea name="notes" rows="3" placeholder="Operational context or next action"></textarea>
+            </label>
+            <button type="submit">Add Record</button>
+          </form>
+        </details>
+
+        <div id="records-list" class="records-list"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+# Changelog
+
+## 2026-05-18
+
+- Added required build documentation before implementation.
+- Selected a dependency-free Node.js MVP architecture for local validation.
+- Documented security boundaries, data handling rules, and deferred production requirements.
+- Defined expected source, public UI, data, and test structure.
+- Added dependency-free Node.js MVP with local API, browser UI, assistant workflow generation, JSON persistence, and audit logging.
+- Added tests for supported workflows, profile validation, escalation detection, unsupported action rejection, and persistence.
+- Added `.gitignore` for local secrets, dependencies, logs, and runtime JSON data.
+- Updated local server binding to `127.0.0.1` by default for safer local-only development.
+- Documented next-step implementation for local access-key enforcement, workspace-scoped data, output history, richer data placeholders, and API validation tests before code changes.
+- Implemented `ACCESS_KEY` enforcement for API calls.
+- Added workspace-scoped profile, output, task, SOP, workflow, KPI history, and audit-log storage.
+- Added browser controls for access key, workspace ID, and recent output history.
+- Added API validation tests for auth, content type, invalid JSON, invalid workspace IDs, unsupported actions, oversized bodies, and workspace-scoped output generation.
+- Added `IMPLEMENTATION_LOG.md` to document each implementation batch before code changes.
+- Documented planned owner review status controls before implementation.
+- Implemented owner review status controls for generated outputs.
+- Added `/api/output-review` with workspace, output ID, access-key, and status validation.
+- Added audit logging for owner review status changes.
+- Added browser review-status controls in recent output history.
+- Added tests for review status defaults, valid updates, invalid statuses, missing outputs, and audit-log updates.
+- Documented planned workspace record CRUD for tasks, SOPs, workflows, and KPI history before implementation.
+- Implemented workspace record CRUD for tasks, SOPs, workflows, and KPI history.
+- Added `/api/records` with create, update, and delete operations.
+- Added browser operational record views with add, save, and delete controls.
+- Added audit logging for operational record changes.
+- Fixed default state cloning to avoid shared in-memory workspace state before persistence.
+- Added tests for record CRUD, invalid collections, missing titles, invalid record IDs, and audit-log updates.
+- Added `AUTHENTICATION_DESIGN.md` documenting the production authentication, authorization, workspace membership, session, and integration-token model.
+- Added `STORAGE_DECISION.md` selecting SQLite as the next storage target and deferring hosted database selection.
+- Linked authentication and storage decisions from README, architecture, and security docs.
+- Added storage contract boundary for future SQLite implementation.
+- Added `npm run migrate:sqlite` placeholder command that clearly exits until migration is implemented.
+- Documented planned SQLite store implementation before code changes.
+- Added SQLite-backed store using built-in `node:sqlite`.
+- Added SQLite schema initialization for workspaces, profiles, outputs, operational records, KPI entries, and audit logs.
+- Added runtime store selection with `STORE_TYPE=json|sqlite`.
+- Updated `npm run migrate:sqlite` to initialize the SQLite schema.
+- Added shared store validation utilities and contract tests for JSON and SQLite stores.
+- Ignored local SQLite runtime files under `data/*.sqlite`.
+- Documented planned JSON-to-SQLite import command before implementation.
+- Added explicit JSON-to-SQLite import command behind `npm run migrate:sqlite`.
+- Added import tests for copying JSON workspace data into SQLite and handling missing JSON sources.
+- Added local backup and restore documentation for JSON and SQLite runtime data.
+- Documented planned operational records UX improvements before implementation.
+- Improved operational records UI with type filters, record counts, summaries, and type-specific workflow/KPI fields.
+- Documented decision to keep JSON as the default store during the client-demo phase while SQLite uses experimental `node:sqlite`.
+- Documented planned assistant output quality fix after manual testing showed the daily review was too generic.
+- Improved daily review output quality with practical summaries, missing-information prompts, and better profile wording.
+- Added behavior test coverage for summary-style daily review requests.
+- Deferred `node:sqlite` loading until SQLiteStore construction so JSON-mode demos do not show SQLite warnings.
