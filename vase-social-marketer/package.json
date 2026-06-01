@@ -1,0 +1,14 @@
+{
+  "name": "vase-social-marketer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Social media marketing tool for vase small businesses",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

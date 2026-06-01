@@ -47,6 +47,58 @@ Access-key protection remains required for review updates. Review status is not 
 
 `npm test` passes.
 
+## 2026-05-19: Sales Growth Assistant Mode
+
+## Documentation-First Status
+
+This entry was created before implementation. The intended change is to add a Sales & Operations Growth Assistant mode for small creative businesses whose art-show-driven sales have dropped.
+
+## Intended Change
+
+Add a new assistant action named `sales_growth_plan` that helps a business owner find new customers beyond art shows and printed flyers. The action should produce:
+
+- Intake questions for missing sales context.
+- Three likely customer segments.
+- Five customer discovery channels.
+- A 30-day customer acquisition plan.
+- A weekly outreach checklist.
+- Follow-up scripts.
+- Partnership ideas.
+- Metrics to track.
+
+## Reason
+
+The client need is broader than daily operations. The owner needs a repeatable, low-cost customer acquisition system that can create demand between shows.
+
+## Expected Behavior
+
+- Existing operations actions continue to work.
+- The new action is available in the browser action dropdown.
+- Recommendations are specific: action, audience, message, channel, owner, and follow-up.
+- The output avoids vague marketing advice.
+
+## Security and Operational Risk
+
+This is business development guidance, not legal, tax, financial, or compliance advice. The assistant should keep recommendations practical and measurable.
+
+## Verification Plan
+
+- Add `sales_growth_plan` to supported actions.
+- Add browser option.
+- Add behavior tests for required sections and specificity.
+- Run `npm test`.
+
+## Implementation Result
+
+- Added `sales_growth_plan` as a supported assistant action.
+- Added the Sales growth plan option to the browser action dropdown.
+- Added sales-growth behavior that produces intake gaps, customer segments, discovery channels, 30-day-style actions, weekly outreach, follow-up actions, partnership ideas, and metrics.
+- Added specificity requirements in tests for action, audience, channel, owner, and follow-up language.
+
+## Verification Result
+
+`npm test` passes.
+
 ## 2026-05-18: Lazy SQLite Runtime Loading
 
 ## Documentation-First Status

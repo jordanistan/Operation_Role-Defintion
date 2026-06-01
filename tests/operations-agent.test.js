@@ -8,7 +8,8 @@ test('supportedActions includes required MVP workflows', () => {
     'weekly_review',
     'create_sop',
     'process_audit',
-    'automation_assessment'
+    'automation_assessment',
+    'sales_growth_plan'
   ]);
 });
 
@@ -76,6 +77,36 @@ test('createAgentResponse flags high-risk escalation topics', () => {
   assert.equal(response.escalationRequired, true);
   assert.deepEqual(response.escalationTopics, ['tax', 'payroll']);
   assert.match(response.sections.riskOrOpportunity.at(-1), /qualified professional/);
+});
+
+test('createAgentResponse builds a specific sales growth plan', () => {
+  const response = createAgentResponse({
+    action: 'sales_growth_plan',
+    profile: {
+      businessName: 'Stem Vase Studio',
+      businessType: 'creative glass vase business',
+      teamSize: 'owner operated',
+      tools: ['printed flyer', 'Instagram'],
+      painPoints: ['post-show orders dropped']
+    },
+    context: 'Sales dropped because of the economy. I relied on art shows and my flyer, but I need new customers who do not know I exist.'
+  });
+
+  const recommendations = response.sections.recommendation.join(' ');
+  const actions = response.sections.nextActions.join(' ');
+  const documentation = response.sections.documentationOrSopImpact.join(' ');
+
+  assert.equal(response.label, 'Sales Growth Plan');
+  assert.match(recommendations, /three likely customer segments/i);
+  assert.match(recommendations, /five discovery channels/i);
+  assert.match(actions, /Action:/);
+  assert.match(actions, /Audience:/);
+  assert.match(actions, /Channel:/);
+  assert.match(actions, /Follow-up:/);
+  assert.match(actions, /past buyers/i);
+  assert.match(actions, /local partners/i);
+  assert.match(documentation, /lead tracker/i);
+  assert.match(documentation, /new leads, reply rate/i);
 });
 
 test('createAgentResponse rejects unsupported actions', () => {

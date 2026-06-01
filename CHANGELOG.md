@@ -52,3 +52,7 @@
 - Improved daily review output quality with practical summaries, missing-information prompts, and better profile wording.
 - Added behavior test coverage for summary-style daily review requests.
 - Deferred `node:sqlite` loading until SQLiteStore construction so JSON-mode demos do not show SQLite warnings.
+- Documented planned sales growth assistant mode before implementation.
+- Added `sales_growth_plan` assistant action for creative businesses that need customers beyond art shows and flyers.
+- Added browser action option for Sales growth plan.
+- Added tests for sales growth specificity and required acquisition-plan sections.

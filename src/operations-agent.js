@@ -16,7 +16,8 @@ const ACTIONS = new Set([
   'weekly_review',
   'create_sop',
   'process_audit',
-  'automation_assessment'
+  'automation_assessment',
+  'sales_growth_plan'
 ]);
 
 export function supportedActions() {
@@ -139,10 +140,49 @@ function buildSections(action, data) {
         'Test automation with sample data before connecting live systems.',
         'Document access scopes and failure alerts.'
       ]
-    })
+    }),
+    sales_growth_plan: () => buildSalesGrowthPlan(shared, data)
   };
 
   return builders[action]();
+}
+
+function buildSalesGrowthPlan(shared, data) {
+  const salesContext = extractSalesContext(data.context);
+  const knownPain = data.painPoints.length
+    ? data.painPoints.join(', ')
+    : 'post-show order volume has dropped';
+
+  return {
+    ...shared,
+    situation: [
+      ...shared.situation,
+      'Client offer: I can build an AI assistant that turns art-show marketing into a repeatable customer-finding system between shows.',
+      'Current growth problem: the business has relied on art shows and printed flyers, but post-show orders have slowed.'
+    ],
+    riskOrOpportunity: [
+      `Risk: relying on one discovery channel leaves sales exposed when show traffic or buyer confidence drops. Current stated issue: ${knownPain}.`,
+      'Opportunity: turn the flyer, show conversations, past buyers, and local visibility into a weekly acquisition system.',
+      `Missing sales inputs to collect: ${missingSalesInputs(data, salesContext).join(', ')}.`
+    ],
+    recommendation: [
+      'Build a Sales & Operations Growth Assistant focused on low-cost customer acquisition, lead follow-up, partnerships, social content, email marketing, referrals, and local visibility.',
+      'Start with three likely customer segments: past art-show buyers who need a reason to reorder, local gift/home/decor shoppers who have never seen the work, and boutique/gallery/corporate gift buyers who can buy or refer repeatedly.',
+      'Use five discovery channels: past-customer email follow-up, local business partnerships, short-form social content, referral requests, and direct outreach to boutiques/galleries/interior designers.'
+    ],
+    nextActions: [
+      'Action: collect the business details. Audience: owner. Message: answer the intake questions for products, best sellers, customer profile, average order value, links, list size, shows, flyer, geography, and monthly sales goal. Channel: owner interview. Owner: business owner. Follow-up: convert answers into the first 30-day plan.',
+      'Action: contact 20 past buyers. Audience: previous customers and show leads. Message: share one best-seller, one new piece, and a simple reorder/custom order invitation. Channel: email or direct message. Owner: business owner. Follow-up: send a second note after 5 days to non-responders.',
+      'Action: pitch 10 local partners. Audience: boutiques, galleries, gift shops, interior designers, event planners, and realtors. Message: offer a small curated product set, referral arrangement, or seasonal gift option. Channel: email plus phone follow-up. Owner: business owner. Follow-up: schedule 3 sample drop-offs or calls.',
+      'Action: repurpose the printed flyer into 8 digital posts. Audience: people who have never attended the shows. Message: show the product, who it is for, why it is giftable or collectible, and how to order. Channel: Instagram, Facebook, Pinterest, local groups, and email. Owner: business owner. Follow-up: invite comments or direct messages and log every inquiry.',
+      'Action: track acquisition weekly. Audience: owner. Message: compare outreach sent, replies, referrals, appointments, orders, and revenue by channel. Channel: assistant KPI record. Owner: assistant plus owner. Follow-up: double down on the channel that creates the most qualified conversations.'
+    ],
+    documentationOrSopImpact: [
+      'Create a customer acquisition SOP with weekly outreach targets, message templates, and follow-up timing.',
+      'Create a lead tracker with source, audience, message, date contacted, follow-up date, status, order value, and notes.',
+      'Review metrics weekly: new leads, reply rate, follow-up completion, referral asks, partner conversations, orders, revenue, and average order value.'
+    ]
+  };
 }
 
 function buildDailyReview(shared, data) {
@@ -232,6 +272,45 @@ function missingDailyReviewInputs(data) {
   if (!data.painPoints.length) missing.push('top operating bottleneck');
 
   return missing;
+}
+
+function extractSalesContext(context) {
+  return {
+    hasShows: /show|art show|market|fair/i.test(context),
+    hasFlyer: /flyer|brochure|printed/i.test(context),
+    hasSalesDrop: /sales|orders|dropped|slow|november|economy/i.test(context),
+    hasGoal: /goal|target|\$|revenue|month/i.test(context)
+  };
+}
+
+function missingSalesInputs(data, salesContext) {
+  const missing = [];
+  const context = data.context.toLowerCase();
+
+  if (!/(sell|product|piece|art|vase|jewelry|ceramic|print|painting|best.?seller)/i.test(context)) {
+    missing.push('what the business sells and best sellers');
+  }
+  if (!/(customer|buyer|collector|gift|profile|audience)/i.test(context)) {
+    missing.push('typical customer profile');
+  }
+  if (!/(average order|aov|\$|price|revenue)/i.test(context)) {
+    missing.push('average order value');
+  }
+  if (!/(website|instagram|facebook|tiktok|pinterest|social|link)/i.test(context)) {
+    missing.push('website and social links');
+  }
+  if (!/(email list|customer list|subscriber|leads)/i.test(context)) {
+    missing.push('customer list size');
+  }
+  if (!salesContext.hasShows) missing.push('art shows attended');
+  if (!salesContext.hasFlyer) missing.push('flyer content');
+  if (!/(local|city|region|area|ship|geographic)/i.test(context)) {
+    missing.push('geographic sales area');
+  }
+  if (!salesContext.hasGoal) missing.push('monthly sales goal');
+  if (!data.tools.length) missing.push('current sales and marketing tools');
+
+  return missing.slice(0, 10);
 }
 
 function labelForAction(action) {

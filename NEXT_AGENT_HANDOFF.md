@@ -105,5 +105,6 @@ Records UX: browser now includes record filters, count buttons, summary metadata
 SQLite default decision: JSON remains default for the client-demo phase; SQLite remains opt-in with `STORE_TYPE=sqlite`. `npm test` passes.
 Assistant behavior fix: daily review now produces a practical summary, avoids awkward profile wording like "operating as a glass vase," and asks for missing details. `npm test` passes.
 Runtime cleanup: `node:sqlite` now loads only when SQLiteStore is constructed, so JSON-mode demos avoid SQLite experimental warnings. `npm test` passes.
+Sales growth mode: added `sales_growth_plan` action for repeatable customer acquisition beyond art shows and flyers. Browser dropdown includes Sales growth plan. `npm test` passes.
 
 Next manual check: open `http://127.0.0.1:3000`, enter the access key, use workspace `demo-client`, save a profile, generate outputs, change review statuses, and create/edit/delete operational records.

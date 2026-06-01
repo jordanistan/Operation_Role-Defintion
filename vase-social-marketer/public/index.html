@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 Vase Social Marketer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌸 Vase Social Marketer</h1>
+      <p>Create beautiful social media posts for your vase business</p>
+    </header>
+
+    <main>
+      <div class="controls">
+        <section class="control-group">
+          <h2>1. Choose Your Vase</h2>
+          <select id="vaseSelect">
+            <option value="">Loading vases...</option>
+          </select>
+        </section>
+
+        <section class="control-group">
+          <h2>2. Pick a Background</h2>
+          <div id="backgroundGrid" class="background-grid">
+            <p>Loading backgrounds...</p>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <h2>3. Who Are You Targeting?</h2>
+          <div class="audience-buttons">
+            <button class="audience-btn" data-audience="new">👋 New Clients</button>
+            <button class="audience-btn" data-audience="returning">💖 Returning Clients</button>
+            <button class="audience-btn active" data-audience="general">✨ Everyone</button>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <h2>4. Add Custom Message (Optional)</h2>
+          <textarea id="customMessage" placeholder="Enter your custom message here..."></textarea>
+        </section>
+
+        <button id="generateBtn" class="generate-btn">🚀 Generate Post</button>
+      </div>
+
+      <div class="preview">
+        <h2>Preview</h2>
+        <div class="preview-image-container">
+          <img id="previewImage" src="" alt="Preview" style="display: none;">
+          <div id="placeholder" class="placeholder">
+            <p>Your post preview will appear here</p>
+          </div>
+        </div>
+
+        <div id="copyOutput" class="copy-output" style="display: none;">
+          <h3>📝 Copy for Social Media</h3>
+          <div id="copyText" class="copy-text"></div>
+          <button id="copyBtn" class="copy-btn">📋 Copy to Clipboard</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
